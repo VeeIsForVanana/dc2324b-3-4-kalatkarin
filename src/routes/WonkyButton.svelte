@@ -1,10 +1,16 @@
 <script>
+	import { createEventDispatcher } from 'svelte';
+	
   export let value = 0;
 	let random = 0;
+
+	const dispatch = createEventDispatcher();
 
 	function handleClick() {
 		random = Math.floor(Math.random() * 10);
 		value += random;
+
+		dispatch('updateSum');
 	}
 </script>
 
