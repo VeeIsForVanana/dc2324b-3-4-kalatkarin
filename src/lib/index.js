@@ -27,17 +27,17 @@ import { writable } from 'svelte/store';
 
 export default function createStore(state) {
     const preferences = {
-        darkMode: state.darkMode;
-        fontSize: state.fontSize;
+        darkMode: state.darkMode,
+        fontSize: state.fontSize
     }
 
     const { subscribe, set, update } = writable(state);
 
     return {
         subscribe,
-        toggleDarkMode: () => update(),
+        toggleDarkMode: () => update( (state) => { state.darkMode = !state.darkMode; return state } ),
         incrementFontSize: () => update( (state) => { state.fontSize += 4; return state } ),
         decrementFontSize: () => update( (state) => { state.fontSize -= 4; return state } ),
-        reset: () => set(preferences);
+        reset: () => set(preferences)
     };
 }
