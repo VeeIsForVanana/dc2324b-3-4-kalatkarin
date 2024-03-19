@@ -22,6 +22,22 @@
  * @param {Settings} state The default settings of the store.
  * @returns {SettingsStore}
  */
-export default function(state) {
-    throw new Error('not yet implemented');
+
+import { writable } from 'svelte/store';
+
+export default function createStore(state) {
+    const preferences = {
+        darkMode: state.darkMode;
+        fontSize: state.fontSize;
+    }
+
+    const { subscribe, set, update } = writable(state);
+
+    return {
+        subscribe,
+        toggleDarkMode: () => update(),
+        incrementFontSize: () => update( (state) => { state.fontSize += 4; return state } ),
+        decrementFontSize: () => update( (state) => { state.fontSize -= 4; return state } ),
+        reset: () => set(preferences);
+    };
 }
